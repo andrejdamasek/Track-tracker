@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "234098075019",
+    "project_id": "orwimaprojektdamasek",
+    "storage_bucket": "orwimaprojektdamasek.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234098075019:android:ba7e69ea928beed90ffb8e",
+        "android_client_info": {
+          "package_name": "com.example.tracktracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj2wDgA0kuJN9KcKt-galMUlDCmxrSMkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
