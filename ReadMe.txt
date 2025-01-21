@@ -1,1 +1,1 @@
-Mobilna aplikacija za projekt iz predmeta ORWIMA
+Mobilna aplikacija za projekt iz kolegija ORWIMA
