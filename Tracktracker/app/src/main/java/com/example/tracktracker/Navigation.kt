@@ -60,7 +60,7 @@ fun NavigationController( viewModel: TrackViewModel) {
             )
         { backStackEntry ->
             backStackEntry.arguments?.getInt("tracksId")?.let {
-                AddNewTrackDayScreen(navController, trackId = it,viewModel)
+                AddNewTrackDayScreen(navController, trackId = it.toString(),viewModel)
             }
         }
 

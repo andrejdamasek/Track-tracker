@@ -56,4 +56,26 @@ class TrackViewModel: ViewModel() {
                 onFailure(e)
             }
     }
+
+    fun addTrackDay(trackId: String, newDay: TrackDay, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        db.collection("tracks")
+            .document(trackId) // Firestore dokument ID (String)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val track = document.toObject(Tracks::class.java)
+                    val updatedDays = track?.trackDays?.toMutableList() ?: mutableListOf()
+
+                    updatedDays.add(newDay)
+
+                    db.collection("tracks").document(trackId)
+                        .update("trackDays", updatedDays)
+                        .addOnSuccessListener { onSuccess() }
+                        .addOnFailureListener { e -> onFailure(e) }
+                } else {
+                    onFailure(Exception("Track with ID $trackId not found"))
+                }
+            }
+            .addOnFailureListener { e -> onFailure(e) }
+    }
 }

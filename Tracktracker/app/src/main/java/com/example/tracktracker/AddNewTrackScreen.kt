@@ -47,7 +47,7 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
     var category by remember { mutableStateOf("Select category") }
     var expanded by remember { mutableStateOf(false) } // Stanje za otvaranje menija
     val categories = listOf("Carting", "Formula", "Rally", "Other") // Lista kategorija
-    val firestore = FirebaseFirestore.getInstance()
+
 
     Box(
         modifier = Modifier.fillMaxSize()

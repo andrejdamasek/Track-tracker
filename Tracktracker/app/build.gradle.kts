@@ -51,16 +51,15 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-
     implementation(libs.androidx.runtime.android)
-
-
-
-
     implementation(libs.firebase.firestore)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
-
+    implementation("com.google.firebase:firebase-firestore:24.9.1")
+    implementation("androidx.activity:activity-ktx:1.8.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("com.google.android.gms:play-services-gcm:17.0.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

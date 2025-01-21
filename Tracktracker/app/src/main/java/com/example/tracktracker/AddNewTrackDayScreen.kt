@@ -41,7 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddNewTrackDayScreen(navController: NavController, trackId: Int,viewModel: ViewModel) {
+fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel: TrackViewModel) {
     var bestTime by remember { mutableStateOf("") }
     var lapsCompleted by remember { mutableStateOf("") }
     var topSpeed by remember { mutableStateOf("") }
@@ -49,7 +49,7 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: Int,viewModel: V
     var day by remember { mutableStateOf("") }
     var month by remember { mutableStateOf("") }
     var year by remember { mutableStateOf("") }
-    val firestore = FirebaseFirestore.getInstance()
+
 
 
     Box(
@@ -209,38 +209,18 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: Int,viewModel: V
                     day = day,
                     month = month,
                     year = year,
-                    lapsCompleted = lapsCompleted.toLong(),
-                    topSpeed = topSpeed.toLong(),
-                    trackTemp = trackTemp.toLong()
+                    lapsCompleted = lapsCompleted.toLongOrNull() ?: 0L,
+                    topSpeed = topSpeed.toLongOrNull() ?: 0L,
+                    trackTemp = trackTemp.toLongOrNull() ?: 0L
                 )
-                firestore.collection("tracks")
-                    .whereEqualTo("id", trackId) // Pronađi dokument gde je id == trackId
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        if (!documents.isEmpty) {
-                            val document = documents.documents[0] // Prvi pronađeni dokument
-                            val trackRef = firestore.collection("tracks").document(document.id) // Pravi Firestore ID
 
-                            // Sada možeš ažurirati trackDays
-                            val track = document.toObject(Tracks::class.java)
-                            val updatedDays = track?.trackDays?.toMutableList() ?: mutableListOf()
-
-                            updatedDays.add(newDay)
-
-                            trackRef.update("trackDays", updatedDays)
-                                .addOnSuccessListener {
-                                    Log.d("FirestoreSuccess", "Track day added successfully")
-                                    navController.popBackStack()
-                                }
-                                .addOnFailureListener { e -> Log.e("FirestoreError", "Error updating trackDays", e) }
-                        } else {
-                            Log.e("FirestoreError", "Track with ID $trackId not found")
-                        }
-                    }
-                    .addOnFailureListener { e -> Log.e("FirestoreError", "Error fetching track", e) }
-
-            })
-             {
+                viewModel.addTrackDay(
+                    trackId,
+                    newDay,
+                    onSuccess = { navController.popBackStack() },
+                    onFailure = { e -> Log.e("FirestoreError", "Error adding track day", e) }
+                )
+            }) {
                 Text("Add track day", fontSize = 18.sp, color = Color.Black)
             }
 

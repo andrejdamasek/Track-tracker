@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import com.example.tracktracker.Routes.NavigationController
 import com.example.tracktracker.ui.theme.TrackTrackerTheme
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
