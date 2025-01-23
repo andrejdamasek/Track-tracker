@@ -32,32 +32,23 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
-
 
 @Composable
-fun TrackDaysScreen(navController: NavController, trackId: Int, viewModel: TrackViewModel) {
-    val firestore = FirebaseFirestore.getInstance()
-    var track by remember { mutableStateOf<Tracks?>(null) }
+fun TrackDaysScreen(navController: NavController, trackId: String, viewModel: TrackViewModel) {
+    val track by viewModel.track.collectAsState()
 
-    // 🔹 Učitaj track days samo za izabranu stazu
     LaunchedEffect(trackId) {
-        firestore.collection("tracks").document(trackId.toString()).get()
-            .addOnSuccessListener { document ->
-                track = document.toObject<Tracks>()
-            }
+        viewModel.loadTrack(trackId)
     }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        // Pozadinska slika
+
         Image(
             painter = painterResource(id = R.drawable.carbon),
             contentDescription = null,
@@ -68,7 +59,7 @@ fun TrackDaysScreen(navController: NavController, trackId: Int, viewModel: Track
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Gornja slika (200dp visina)
+
             Image(
                 painter = painterResource(id = R.drawable.zastavice),
                 contentDescription = "Checkered Flags",
@@ -82,10 +73,9 @@ fun TrackDaysScreen(navController: NavController, trackId: Int, viewModel: Track
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Back Button
+
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
@@ -93,25 +83,22 @@ fun TrackDaysScreen(navController: NavController, trackId: Int, viewModel: Track
                         tint = Color.White
                     )
                 }
-                // Centriran Naslov
+
                 Box(
                     modifier = Modifier.weight(1f),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Naslov
+
                     Text(
                         text = "TRACK DAYS",
                         fontSize = 35.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White,
-
+                        color = Color.White
                         )
                 }
-
-                // Spacer koji balansira prostor (Desno)
                 Spacer(modifier = Modifier.weight(0.2f))
-
             }
+
             track?.let {trackData ->
                 LazyColumn(
                     modifier = Modifier.fillMaxSize().weight(1f),
@@ -119,14 +106,11 @@ fun TrackDaysScreen(navController: NavController, trackId: Int, viewModel: Track
                 ) {
                     items(trackData.trackDays) { day ->
                         TrackDayCard(day)}
-
                 }
             }
 
-
-            // Dugme za dodavanje novog dana
             Button(
-                onClick = { navController.navigate("add_new_track_day_screen/$trackId")},
+                onClick = { navController.navigate("AddNewTrackDayScreen/$trackId")},
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp,
@@ -141,7 +125,6 @@ fun TrackDaysScreen(navController: NavController, trackId: Int, viewModel: Track
     }
 }
 
-// Kartica za prikaz podataka o danu
 @Composable
 fun TrackDayCard(trackDay: TrackDay) {
     Card(
@@ -156,13 +139,12 @@ fun TrackDayCard(trackDay: TrackDay) {
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Prvi red: "Date" + datum | "Best Time" + bestTime
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start // Date ostaje levo
+                horizontalArrangement = Arrangement.Start
             ) {
                 Column(
-                    modifier = Modifier.weight(1f), // Ostaje na levoj strani
+                    modifier = Modifier.weight(1f),
                     horizontalAlignment = Alignment.Start
                 ) {
                     Text("Date", fontSize = 16.sp, modifier = Modifier.padding(start =  30.dp))
@@ -170,7 +152,7 @@ fun TrackDayCard(trackDay: TrackDay) {
                 }
 
                 Column(
-                    modifier = Modifier.weight(2f), // Best time pomeren više ka sredini
+                    modifier = Modifier.weight(2f),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text("Best time", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
@@ -180,7 +162,6 @@ fun TrackDayCard(trackDay: TrackDay) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Drugi red: Laps, Speed, Temperature
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

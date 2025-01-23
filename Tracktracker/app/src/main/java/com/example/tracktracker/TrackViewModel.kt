@@ -4,6 +4,9 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class TrackViewModel: ViewModel() {
     private val db = Firebase.firestore
@@ -12,6 +15,8 @@ class TrackViewModel: ViewModel() {
     private val _filteredTracks = mutableStateListOf<Tracks>()
     val filteredTracks: List<Tracks> get() = _filteredTracks
 
+    private val _track = MutableStateFlow<Tracks?>(null)
+    val track: StateFlow<Tracks?> = _track
 
     init {
         fetchDatabaseData()
@@ -59,7 +64,7 @@ class TrackViewModel: ViewModel() {
 
     fun addTrackDay(trackId: String, newDay: TrackDay, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         db.collection("tracks")
-            .document(trackId) // Firestore dokument ID (String)
+            .document(trackId)
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
@@ -77,5 +82,12 @@ class TrackViewModel: ViewModel() {
                 }
             }
             .addOnFailureListener { e -> onFailure(e) }
+    }
+
+    fun loadTrack(trackId: String) {
+        db.collection("tracks").document(trackId).get()
+            .addOnSuccessListener { document ->
+                _track.value = document.toObject<Tracks>()
+            }
     }
 }

@@ -7,7 +7,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 
-
 object Routes
 {
     const val SCREEN_WELCOME = "WelcomeScreen"
@@ -24,14 +23,17 @@ object Routes
         }
     }
 
+
 @Composable
 fun NavigationController( viewModel: TrackViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Routes.SCREEN_WELCOME) {
+
         composable(Routes.SCREEN_WELCOME) {
             WelcomeScreen(navController)
         }
+
         composable(Routes.SCREEN_TRACK ) {
             TrackScreen(navController,viewModel)
         }
@@ -43,27 +45,24 @@ fun NavigationController( viewModel: TrackViewModel) {
         composable(Routes.SCREEN_TRACK_DAYS,
             arguments = listOf(
                 navArgument("tracksId") {
-                    type = NavType.IntType
+                    type = NavType.StringType
                 }
             )
         ) {backStackEntry ->
-            backStackEntry.arguments?.getInt("tracksId")?.let {
+            backStackEntry.arguments?.getString("tracksId")?.let {
               TrackDaysScreen( navController, trackId=it,viewModel)
         }}
 
         composable(Routes.SCREEN_ADD_NEW_TRACK_DAY,
             arguments = listOf(
                 navArgument("tracksId") {
-                    type = NavType.IntType
+                    type = NavType.StringType
                 }
-            )
-            )
+            ))
         { backStackEntry ->
-            backStackEntry.arguments?.getInt("tracksId")?.let {
-                AddNewTrackDayScreen(navController, trackId = it.toString(),viewModel)
+            backStackEntry.arguments?.getString("tracksId")?.let {
+                AddNewTrackDayScreen(navController, trackId = it,viewModel)
             }
         }
-
     }
-}
-}
+}}

@@ -37,26 +37,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.firestore.FirebaseFirestore
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
     var trackName by remember { mutableStateOf("") }
     var category by remember { mutableStateOf("Select category") }
-    var expanded by remember { mutableStateOf(false) } // Stanje za otvaranje menija
-    val categories = listOf("Carting", "Formula", "Rally", "Other") // Lista kategorija
-
+    var expanded by remember { mutableStateOf(false) }
+    val categories = listOf("Carting", "Formula", "Rally", "Other")
 
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.carbonpozadina), // Zameni sa stvarnim imenom fajla
+            painter = painterResource(id = R.drawable.carbonpozadina),
             contentDescription = "Background",
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop // Prilagođava sliku ekranu
+            contentScale = ContentScale.Crop
         )
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -66,10 +63,8 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // Back Button
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
@@ -77,12 +72,11 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
                     tint = Color.White
                 )
             }
-            // Centriran Naslov
+
             Box(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.Center
             ) {
-                // Naslov
                 Text(
                     "Adding new track",
                     fontSize = 24.sp,
@@ -91,7 +85,6 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
                 Spacer(modifier = Modifier.height(20.dp))
             }
 
-            // Spacer koji balansira prostor (Desno)
             Spacer(modifier = Modifier.weight(0.1f))
         }
 
@@ -101,9 +94,9 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
             label = { Text("Track name") },
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                containerColor = Color.LightGray, // Svetlosiva pozadina
-                focusedBorderColor = Color.White, // Crna ivica kada je fokusirano
-                unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
+                containerColor = Color.LightGray,
+                focusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.Gray
             )
         )
 
@@ -124,7 +117,6 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
                     .menuAnchor(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     containerColor = Color.LightGray,
-
                     focusedBorderColor = Color.Black,
                     unfocusedBorderColor = Color.Gray
                 )
@@ -153,7 +145,7 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
                 if (trackName.isNotEmpty() && category.isNotEmpty()) {
                     val newTrack = Tracks(name = trackName, category = category)
                     viewModel.addTrack(newTrack,
-                        onSuccess = { navController.popBackStack() },
+                        onSuccess = { navController.navigate(Routes.SCREEN_TRACK) },
                         onFailure = { e -> println("Error: $e") }
                     )
                 }

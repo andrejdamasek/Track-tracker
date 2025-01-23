@@ -2,7 +2,6 @@ package com.example.tracktracker
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,11 +31,9 @@ fun WelcomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(206,175,160)), // Boja pozadine prema slici
+            .background(Color(206,175,160)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-       // Naslov
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Welcome racer!",
@@ -44,12 +41,10 @@ fun WelcomeScreen(navController: NavController) {
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             color = Color.Black,
-            modifier = Modifier.clickable { /* Ako želiš dodati akciju */ }
         )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // Opis
         Text(
             text = "Are you ready to set fast laps?",
             fontSize = 20.sp,
@@ -67,7 +62,6 @@ fun WelcomeScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
-
             )
             Button(
                 onClick = {navController.navigate(Routes.SCREEN_TRACK) },
@@ -82,9 +76,6 @@ fun WelcomeScreen(navController: NavController) {
             ) {
                 Text(text = "START", fontSize = 40.sp, color = Color.White)
             }
-
-
         }
-
     }
 }

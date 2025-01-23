@@ -1,6 +1,5 @@
 package com.example.tracktracker
 
-
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -33,11 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.google.firebase.firestore.FirebaseFirestore
-
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,31 +45,26 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
     var month by remember { mutableStateOf("") }
     var year by remember { mutableStateOf("") }
 
-
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.carbonpozadina), // Zameni sa stvarnim imenom fajla
+            painter = painterResource(id = R.drawable.carbonpozadina),
             contentDescription = "Background",
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop // Prilagođava sliku ekranu
+            contentScale = ContentScale.Crop
         )
         Column(
             modifier = Modifier.fillMaxSize().padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-
-            ) {
-
+            horizontalAlignment = Alignment.CenterHorizontally
+            )
+        {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Back Button
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
@@ -83,21 +73,16 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                     )
                 }
 
-                // Centriran Naslov
                 Box(
                     modifier = Modifier.weight(1f),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Naslov
                     Text("Adding new track day", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
                 }
 
-                // Spacer koji balansira prostor (Desno)
                 Spacer(modifier = Modifier.weight(0.1f))
 
-
             }
-
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -107,9 +92,9 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                 label = { Text("Best lap time") },
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Svetlosiva pozadina
-                    focusedBorderColor = Color.White, // Crna ivica kada je fokusirano
-                    unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
+                    containerColor = Color.LightGray,
+                    focusedBorderColor = Color.White,
+                    unfocusedBorderColor = Color.Gray
 
             ))
 
@@ -121,9 +106,9 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                 label = { Text("Laps completed") },
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Svetlosiva pozadina
-                    focusedBorderColor = Color.Black, // Crna ivica kada je fokusirano
-                    unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
+                    containerColor = Color.LightGray,
+                    focusedBorderColor = Color.Black,
+                    unfocusedBorderColor = Color.Gray
 
                 )
             )
@@ -135,10 +120,9 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                 label = { Text("Top speed") },
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Svetlosiva pozadina
-                    focusedBorderColor = Color.Black, // Crna ivica kada je fokusirano
-                    unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
-
+                    containerColor = Color.LightGray,
+                    focusedBorderColor = Color.Black,
+                    unfocusedBorderColor = Color.Gray
                 )
             )
 
@@ -149,10 +133,9 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                 label = { Text("Track temp") },
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Svetlosiva pozadina
-                    focusedBorderColor = Color.Black, // Crna ivica kada je fokusirano
-                    unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
-
+                    containerColor = Color.LightGray,
+                    focusedBorderColor = Color.Black,
+                    unfocusedBorderColor = Color.Gray
                 )
             )
 
@@ -163,10 +146,9 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                 label = { Text("Day") },
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Svetlosiva pozadina
-                    focusedBorderColor = Color.Black, // Crna ivica kada je fokusirano
-                    unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
-
+                    containerColor = Color.LightGray,
+                    focusedBorderColor = Color.Black,
+                    unfocusedBorderColor = Color.Gray
                 )
             )
 
@@ -178,10 +160,9 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                 label = { Text("Month") },
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Svetlosiva pozadina
-                    focusedBorderColor = Color.Black, // Crna ivica kada je fokusirano
-                    unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
-
+                    containerColor = Color.LightGray,
+                    focusedBorderColor = Color.Black,
+                    unfocusedBorderColor = Color.Gray
                 )
             )
 
@@ -193,15 +174,13 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                 label = { Text("Year") },
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Svetlosiva pozadina
-                    focusedBorderColor = Color.Black, // Crna ivica kada je fokusirano
-                    unfocusedBorderColor = Color.Gray // Siva ivica kada nije fokusirano
-
+                    containerColor = Color.LightGray,
+                    focusedBorderColor = Color.Black,
+                    unfocusedBorderColor = Color.Gray
                 )
             )
 
             Spacer(modifier = Modifier.height(20.dp))
-
 
             Button(onClick = {
                 val newDay = TrackDay(
@@ -223,10 +202,6 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
             }) {
                 Text("Add track day", fontSize = 18.sp, color = Color.Black)
             }
-
-
         }
     }
 }
-
-
