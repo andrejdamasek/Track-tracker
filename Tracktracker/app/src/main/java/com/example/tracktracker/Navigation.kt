@@ -11,7 +11,7 @@ object Routes
 {
     const val SCREEN_WELCOME = "WelcomeScreen"
     const val SCREEN_TRACK = "TrackScreen"
-    const val SCREEN_TRACK_DAYS="TrackDaysScreen/{tracksId}"
+    const val SCREEN_TRACK_DAYS = "TrackDaysScreen/{trackId}"
     const val SCREEN_ADD_NEW_TRACK ="AddNewTrackScreen"
     const val SCREEN_ADD_NEW_TRACK_DAY ="AddNewTrackDayScreen/{tracksId}"
 
@@ -22,6 +22,7 @@ object Routes
             "TrackScreen"
         }
     }
+}
 
 
 @Composable
@@ -44,14 +45,14 @@ fun NavigationController( viewModel: TrackViewModel) {
 
         composable(Routes.SCREEN_TRACK_DAYS,
             arguments = listOf(
-                navArgument("tracksId") {
-                    type = NavType.StringType
-                }
+                navArgument("trackId") { type = NavType.StringType }
             )
-        ) {backStackEntry ->
-            backStackEntry.arguments?.getString("tracksId")?.let {
-              TrackDaysScreen( navController, trackId=it,viewModel)
-        }}
+        ) { backStackEntry ->
+           backStackEntry.arguments?.getString("trackId")?.let {
+                    TrackDaysScreen(navController = navController, trackId = it, viewModel = viewModel)
+                }
+            }
+
 
         composable(Routes.SCREEN_ADD_NEW_TRACK_DAY,
             arguments = listOf(
@@ -65,4 +66,4 @@ fun NavigationController( viewModel: TrackViewModel) {
             }
         }
     }
-}}
+}

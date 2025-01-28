@@ -15,26 +15,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -43,11 +38,6 @@ import androidx.navigation.NavController
 fun TrackScreen(navController: NavController,viewModel: TrackViewModel) {
 
     val categories = remember { mutableStateListOf("ALL", "Carting", "Formula", "Rally", "Other") }
-    var selectedCategory by remember { mutableStateOf("ALL") }
-
-    LaunchedEffect(selectedCategory) {
-        viewModel.filterTracksByCategory(selectedCategory)
-    }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -73,7 +63,7 @@ fun TrackScreen(navController: NavController,viewModel: TrackViewModel) {
             ) {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.Black
                     )
@@ -87,8 +77,7 @@ fun TrackScreen(navController: NavController,viewModel: TrackViewModel) {
                         text = "TRACKS",
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        textAlign = TextAlign.Center
+                        color = Color.Black
                     )
                 }
 
@@ -116,7 +105,7 @@ fun TrackScreen(navController: NavController,viewModel: TrackViewModel) {
             ) {
                 items(categories) { category ->
                     Button(
-                        onClick = { selectedCategory = category },
+                        onClick = { viewModel.setSelectedCategory(category) },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = when (category) {
                                 "ALL" -> Color(0x804DC6B1)
@@ -143,8 +132,13 @@ fun TrackScreen(navController: NavController,viewModel: TrackViewModel) {
                     Button(
                         onClick = { navController.navigate(Routes.getTrackPath(track.id))},
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.White,
-                            containerColor = Color(0x804DC6B1)
+                            containerColor = when (track.category) {
+                                "Carting" -> Color(0xB30C8EC6)
+                                "Formula" -> Color(0xB3236AD4)
+                                "Rally" -> Color(0xB3099DDE)
+                                "Other" -> Color(0xB3194993)
+                                else -> Color.Gray
+                            }
                         ),
                         modifier = Modifier
                             .fillMaxWidth()

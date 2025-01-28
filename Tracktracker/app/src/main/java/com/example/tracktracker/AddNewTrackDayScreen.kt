@@ -10,14 +10,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel: TrackViewModel) {
     var bestTime by remember { mutableStateOf("") }
@@ -67,7 +68,7 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
             ) {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.White
                     )
@@ -80,107 +81,120 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                     Text("Adding new track day", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
                 }
 
-                Spacer(modifier = Modifier.weight(0.1f))
-
+                Spacer(modifier = Modifier.weight(0.1f)) //radi centriranja naslova tj. pomicanje naslova malo lijevo
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            OutlinedTextField(
+            TextField(
                 value = bestTime,
                 onValueChange = { bestTime = it },
                 label = { Text("Best lap time") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.White,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
 
-            ))
+                ))
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OutlinedTextField(
+            TextField(
                 value = lapsCompleted,
                 onValueChange = { lapsCompleted = it },
                 label = { Text("Laps completed") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
 
                 )
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
+            TextField(
                 value = topSpeed,
                 onValueChange = { topSpeed = it },
                 label = { Text("Top speed") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
                 )
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
+            TextField(
                 value = trackTemp,
                 onValueChange = { trackTemp = it },
                 label = { Text("Track temp") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
                 )
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
+            TextField(
                 value = day,
                 onValueChange = { day = it },
                 label = { Text("Day") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
                 )
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OutlinedTextField(
+            TextField(
                 value = month,
                 onValueChange = { month = it },
                 label = { Text("Month") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
                 )
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OutlinedTextField(
+            TextField(
                 value = year,
                 onValueChange = { year = it },
                 label = { Text("Year") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
                 )
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(250.dp))
 
             Button(onClick = {
                 val newDay = TrackDay(
@@ -199,7 +213,12 @@ fun AddNewTrackDayScreen(navController: NavController, trackId: String,viewModel
                     onSuccess = { navController.popBackStack() },
                     onFailure = { e -> Log.e("FirestoreError", "Error adding track day", e) }
                 )
-            }) {
+            },
+              modifier = Modifier.fillMaxWidth()
+                .height(60.dp),
+              shape = RoundedCornerShape(12.dp),
+              colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
+            ){
                 Text("Add track day", fontSize = 18.sp, color = Color.Black)
             }
         }

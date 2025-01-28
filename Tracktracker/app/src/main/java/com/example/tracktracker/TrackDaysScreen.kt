@@ -28,38 +28,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 
 @Composable
 fun TrackDaysScreen(navController: NavController, trackId: String, viewModel: TrackViewModel) {
+
     val track by viewModel.track.collectAsState()
 
-    LaunchedEffect(trackId) {
-        viewModel.loadTrack(trackId)
-    }
+    viewModel.loadTrack(trackId)
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
-
         Image(
             painter = painterResource(id = R.drawable.carbon),
-            contentDescription = null,
+            contentDescription = "Carbon background",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Image(
                 painter = painterResource(id = R.drawable.zastavice),
                 contentDescription = "Checkered Flags",
@@ -75,10 +71,9 @@ fun TrackDaysScreen(navController: NavController, trackId: String, viewModel: Tr
                     .padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.White
                     )
@@ -88,7 +83,6 @@ fun TrackDaysScreen(navController: NavController, trackId: String, viewModel: Tr
                     modifier = Modifier.weight(1f),
                     contentAlignment = Alignment.Center
                 ) {
-
                     Text(
                         text = "TRACK DAYS",
                         fontSize = 35.sp,
@@ -99,22 +93,23 @@ fun TrackDaysScreen(navController: NavController, trackId: String, viewModel: Tr
                 Spacer(modifier = Modifier.weight(0.2f))
             }
 
-            track?.let {trackData ->
+            track?.let { trackData ->
                 LazyColumn(
-                    modifier = Modifier.fillMaxSize().weight(1f),
+                    modifier = Modifier.fillMaxSize()
+                                       .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(trackData.trackDays) { day ->
-                        TrackDayCard(day)}
+                        TrackDayCard(day)
+                    }
                 }
             }
 
             Button(
-                onClick = { navController.navigate("AddNewTrackDayScreen/$trackId")},
+                onClick = { navController.navigate("AddNewTrackDayScreen/${trackId}") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp,
-                        vertical = 20.dp)
+                    .padding(horizontal = 16.dp, vertical = 25.dp)
                     .height(60.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White)
@@ -168,7 +163,7 @@ fun TrackDayCard(trackDay: TrackDay) {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Laps completed", fontSize = 16.sp)
-                    Text(trackDay.lapsCompleted.toString(), fontSize = 18.sp, )
+                    Text(trackDay.lapsCompleted.toString(), fontSize = 18.sp )
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Top speed", fontSize = 16.sp)

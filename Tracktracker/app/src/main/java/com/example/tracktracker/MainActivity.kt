@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.example.tracktracker.Routes.NavigationController
 import com.example.tracktracker.ui.theme.TrackTrackerTheme
 
 class MainActivity : ComponentActivity() {

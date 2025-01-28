@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
@@ -20,8 +20,8 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -67,7 +67,7 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
         ) {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
                     tint = Color.White
                 )
@@ -88,15 +88,17 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
             Spacer(modifier = Modifier.weight(0.1f))
         }
 
-        OutlinedTextField(
+        TextField(
             value = trackName,
             onValueChange = { trackName = it },
             label = { Text("Track name") },
             modifier = Modifier.fillMaxWidth(),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                containerColor = Color.LightGray,
-                focusedBorderColor = Color.White,
-                unfocusedBorderColor = Color.Gray
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.LightGray,
+                unfocusedContainerColor = Color.LightGray,
+                focusedIndicatorColor = Color.Black,
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black
             )
         )
 
@@ -106,7 +108,7 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
             expanded = expanded,
             onExpandedChange = { expanded = !expanded }
         ) {
-            OutlinedTextField(
+            TextField(
                 value = category,
                 onValueChange = {},
                 readOnly = true,
@@ -115,10 +117,12 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .menuAnchor(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray,
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.LightGray,
+                    unfocusedContainerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Gray,
+                    cursorColor = Color.Black
                 )
             )
 
@@ -138,7 +142,7 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(590.dp))
 
         Button(
             onClick = {
@@ -151,8 +155,9 @@ fun AddNewTrackScreen(navController: NavController,viewModel: TrackViewModel) {
                 }
             },
             colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = Color.LightGray),
-            shape = RoundedCornerShape(10.dp),
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.fillMaxWidth()
+                .height(60.dp),
         ) {
             Text("Add new track", fontSize = 18.sp, color = Color.Black)
         }
