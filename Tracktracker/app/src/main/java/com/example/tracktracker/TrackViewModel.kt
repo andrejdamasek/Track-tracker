@@ -81,7 +81,7 @@ class TrackViewModel: ViewModel() {
                         .addOnSuccessListener {
                             track = track?.copy(trackDays = updatedDays)
                             track?.let {
-                                this.track.value = it // 🚀 Ažuriramo MutableStateFlow odmah!
+                                this.track.value = it
                             }
                             onSuccess()
                         }
